@@ -1,18 +1,24 @@
 const redux = require("redux");
 const createStore = redux.createStore;
 const CAKE_ORDERED = "CAKE_ORDERED";
-const { orderCake, addedNewCake, reStock } = require("./actionCreaters");
+const { orderCake, addedNewCake, reStock, addnewIceCream } = require("./actionCreaters");
 const bindActionCreators = redux.bindActionCreators;
+const combineReducers =  redux.combineReducers;
 
-const initialState = {
+const initialCakeState = {
     numberOfCakes: 10,
     secondOne: 12,
     string : "somerandomeString"
 }
 
+const initalIceCreamState = {
+    numberOfIceCream : 100,
+    owner: "Chauhan"
+}
+
 // making a reducer
 
-const reducer = (state = initialState, action) => {
+const CakeReducers = (state = initialCakeState, action) => {
     switch (action.type) {
         case CAKE_ORDERED:
             return {
@@ -31,12 +37,28 @@ const reducer = (state = initialState, action) => {
             return state;
     }
 }
-const store = createStore(reducer);
+const IceCreamReducer = (state = initalIceCreamState, action) => {
+    switch (action.type) {
+        case "addingNewIceCream":
+            return {
+                ...state, numberOfIceCream: state.numberOfIceCream + 1,
+            }
+        default:
+            return state;
+    }
+}
+
+const rootReducers = combineReducers({
+    cake : CakeReducers,
+    iceCream : IceCreamReducer
+})
+
+const store = createStore(rootReducers);
 console.log("initial state : ", store.getState());
 
 // subscribing to the changes 
 
-const unSubscribe = store.subscribe(() => console.log("this is something : ", store.getState()));
+const unSubscribe = store.subscribe(() => console.log(store.getState()));
 
 // dispatching
 
@@ -49,13 +71,16 @@ const unSubscribe = store.subscribe(() => console.log("this is something : ", st
 
 // todo :  instead of doing this we can use the bind method, but not so useful!!
 
-const actions = bindActionCreators({orderCake , addedNewCake , reStock} , store.dispatch);
+const actions = bindActionCreators({orderCake , addedNewCake , reStock, addnewIceCream} , store.dispatch);
 
 actions.addedNewCake();
 actions.addedNewCake();
 actions.addedNewCake();
 actions.orderCake();
 actions.reStock();
+actions.addnewIceCream();
+actions.addnewIceCream();
+actions.addnewIceCream();
 
 
 

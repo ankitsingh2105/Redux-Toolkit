@@ -17,4 +17,9 @@ const reStock = (quantity =1) =>{
         string : "ankit singh chauhan"
     }
 }
-module.exports = { orderCake, addedNewCake, reStock };
+const addnewIceCream = () =>{
+    return{
+        type: "addingNewIceCream",
+    }
+}
+module.exports = { orderCake, addedNewCake, reStock,addnewIceCream };
