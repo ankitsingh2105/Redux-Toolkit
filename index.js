@@ -22,6 +22,7 @@ const CakeReducers = (state = initialCakeState, action) => {
     switch (action.type) {
         case CAKE_ORDERED:
             return {
+                // copied and made necessary changes in the data
                 ...state, numberOfCakes: state.numberOfCakes - 1,
             }
         case "AddingNewCake":
