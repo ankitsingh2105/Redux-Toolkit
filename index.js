@@ -5,6 +5,11 @@ const { orderCake, addedNewCake, reStock, addnewIceCream } = require("./actionCr
 const bindActionCreators = redux.bindActionCreators;
 const combineReducers =  redux.combineReducers;
 
+// todo : for making middleware--
+const reduxLogger = require("redux-logger");
+const logger = reduxLogger.createLogger(); 
+const applyMiddleWare = redux.applyMiddleware;
+
 const initialCakeState = {
     numberOfCakes: 10,
     secondOne: 12,
@@ -54,7 +59,7 @@ const rootReducers = combineReducers({
     iceCream : IceCreamReducer
 })
 
-const store = createStore(rootReducers);
+const store = createStore(rootReducers , applyMiddleWare(logger));
 console.log("initial state : ", store.getState());
 
 // subscribing to the changes 
