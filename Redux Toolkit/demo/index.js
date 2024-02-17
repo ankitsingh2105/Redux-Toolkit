@@ -7,7 +7,8 @@ const iceCreamActions = require("../features/iceCream/iceCreamSlice").iceCreamAc
 
 // Subscribing to store updates and logging the updated state
 const unSubscribe = store.subscribe(() => {
-    console.log("Updated State: ", store.getState());
+    // ! we dont need to add this console.log here as middleware will take care of this
+    // console.log("Updated State: ", store.getState());
 });
 
 // Dispatching actions to simulate cake ordering and restocking
@@ -18,7 +19,7 @@ store.dispatch(cakeActions.ordered());
 store.dispatch(cakeActions.restocked(199));
 
 // todo : for iceCream
-console.log("\n")
+console.log("\n")     
 store.dispatch(iceCreamActions.ordered());
 store.dispatch(iceCreamActions.ordered());
 store.dispatch(iceCreamActions.ordered());
