@@ -1,14 +1,9 @@
 // Importing the Redux store
 const store = require("../app/store");
 
-// Importing cake action creators from the cake slice
+// todo : Importing cake action creators from the cake slice
 const cakeActions = require("../features/cake/cakeSlice").cakeActions;
-
-// Logging the initial state of the store
-console.log("Initial State: ", store.getState());
-
-// Logging the available cake action creators
-console.log("Cake Actions: ", cakeActions);
+const iceCreamActions = require("../features/iceCream/iceCreamSlice").iceCreamActions
 
 // Subscribing to store updates and logging the updated state
 const unSubscribe = store.subscribe(() => {
@@ -21,6 +16,13 @@ store.dispatch(cakeActions.ordered());
 store.dispatch(cakeActions.ordered());
 store.dispatch(cakeActions.ordered());
 store.dispatch(cakeActions.restocked(199));
+
+// todo : for iceCream
+console.log("\n")
+store.dispatch(iceCreamActions.ordered());
+store.dispatch(iceCreamActions.ordered());
+store.dispatch(iceCreamActions.ordered());
+store.dispatch(iceCreamActions.restocked(677));
 
 // Unsubscribing from store updates
 unSubscribe();
