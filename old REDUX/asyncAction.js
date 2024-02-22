@@ -12,10 +12,13 @@ const initialState = {
     error: ""
 };
 
+// actions types
 const FETCH_USER_REQUESTED = "FETCH_USER_REQUESTED";
 const FETCH_USER_SUCCEEDED = "FETCH_USER_SUCCEEDED";
 const FETCH_USER_FAILED = "FETCH_USER_FAILED";
 
+
+// action creators
 const fetchUserRequest = () => {
     return {
         type: FETCH_USER_REQUESTED
@@ -34,6 +37,23 @@ const fetchUserFailed = (error) => {
     };
 };
 
+// action creator
+// using this thunk the action creator can return a function insted of a object
+// otherwise we were retuning a object alaways
+const fetchUsers = () => {
+    // Implement asynchronous logic here if needed
+    return async function(dispatch){
+        dispatch(fetchUserRequest());
+        try{
+            let response = await axios.get("https://jsonplaceholder.typicode.com/users");
+            const user = response.data.map((user)=>user.name);
+            dispatch(fetchUserSuccess(user));
+        }
+        catch(error){
+            dispatch(fetchUserFailed(error.message));
+        }
+    }
+};
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case FETCH_USER_REQUESTED:
@@ -58,23 +78,6 @@ const reducer = (state = initialState, action) => {
     }
 };
 
-// action creator
-// using this thunk the action creator can return a function insted of a object
-// otherwise we were retuning a object alaways
-const fetchUsers = () => {
-    // Implement asynchronous logic here if needed
-    return async function(dispatch){
-        dispatch(fetchUserRequest());
-        try{
-            let response = await axios.get("https://jsonplaceholder.typicode.com/users");
-            const user = response.data.map((user)=>user.name);
-            dispatch(fetchUserSuccess(user));
-        }
-        catch(error){
-            dispatch(fetchUserFailed(error.message));
-        }
-    }
-};
 
 // todo : using this thinkmiddleware i am able to return a function in an action Creator instead of a object!!
 const store = createStore(reducer, applyMiddleware(thunkMiddleWare));

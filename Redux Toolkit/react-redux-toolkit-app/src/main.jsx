@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
 import { Provider } from "react-redux";
-import store from "./app/store.js"
+import store from "./app/store"
+{/* todo : provider is using react context under the hood  */}
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    {/* todo : provider is using react contest under the hood  */}
     <Provider store={store}>
       <App />
     </Provider>

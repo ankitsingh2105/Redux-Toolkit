@@ -1,14 +1,11 @@
 // Importing necessary dependencies
-import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
-import reduxLogger from "redux-logger";
+import {configureStore} from "@reduxjs/toolkit";
 
 // Importing reducers from their respective files
-import cakeReducer from "../src/features/cake/cakeSlice";
-import iceCreamReducer from "../src/features/iceCream/iceCreamSlice";
-import userReducer  from "../src/features/user/userSlice";
+import cakeReducer from "../features/cake/cakeSlice";
+import iceCreamReducer from "../features/iceCream/iceCreamSlice";
+import userReducer from "../features/user/userSlice";
 
-// Creating a logger instance
-const logger = reduxLogger.createLogger();
 
 // Configuring the Redux store
 const store = configureStore({
@@ -16,10 +13,10 @@ const store = configureStore({
     reducer: {
         cake: cakeReducer,
         iceCream: iceCreamReducer,
-        user : userReducer,
+        user: userReducer,
     },
     // Adding middleware to enhance Redux's capabilities
-    middleware: [...getDefaultMiddleware(), logger],
+    // middleware: [...getDefaultMiddleware(), logger],
 
     // ! or we can do somthing like this 
     //todo:  middleware: getDefaultMiddleware =>

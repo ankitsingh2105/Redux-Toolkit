@@ -3,21 +3,21 @@ const createStore = redux.createStore;
 const CAKE_ORDERED = "CAKE_ORDERED";
 const { orderCake, addedNewCake, reStock, addnewIceCream } = require("./actionCreaters");
 const bindActionCreators = redux.bindActionCreators;
-const combineReducers =  redux.combineReducers;
+const combineReducers = redux.combineReducers;
 
 // todo : for making middleware--
 const reduxLogger = require("redux-logger");
-const logger = reduxLogger.createLogger(); 
+const logger = reduxLogger.createLogger();
 const applyMiddleWare = redux.applyMiddleware;
 
 const initialCakeState = {
     numberOfCakes: 10,
     secondOne: 12,
-    string : "somerandomeString"
+    string: "somerandomeString"
 }
 
 const initalIceCreamState = {
-    numberOfIceCream : 100,
+    numberOfIceCream: 100,
     owner: "Chauhan"
 }
 
@@ -35,9 +35,9 @@ const CakeReducers = (state = initialCakeState, action) => {
                 ...state, numberOfCakes: state.numberOfCakes + 1
             }
         case "restocking":
-            return{
-                ...state, numberOfCakes : state.numberOfCakes + action.quantity ,
-                string : action.string
+            return {
+                ...state, numberOfCakes: state.numberOfCakes + action.quantity,
+                string: action.string
             }
         default:
             return state;
@@ -49,17 +49,22 @@ const IceCreamReducer = (state = initalIceCreamState, action) => {
             return {
                 ...state, numberOfIceCream: state.numberOfIceCream + 1,
             }
+        case CAKE_ORDERED:
+            return {
+                // copied and made necessary changes in the data
+                ...state, numberOfCakes: state.numberOfCakes - 1,
+            }
         default:
             return state;
     }
 }
 
 const rootReducers = combineReducers({
-    cake : CakeReducers,
-    iceCream : IceCreamReducer
+    cake: CakeReducers,
+    iceCream: IceCreamReducer
 })
 
-const store = createStore(rootReducers , applyMiddleWare(logger));
+const store = createStore(rootReducers, applyMiddleWare(logger));
 console.log("initial state : ", store.getState());
 
 // subscribing to the changes 
@@ -77,7 +82,7 @@ const unSubscribe = store.subscribe(() => console.log(store.getState()));
 
 // todo :  instead of doing this we can use the bind method, but not so useful!!
 
-const actions = bindActionCreators({orderCake , addedNewCake , reStock, addnewIceCream} , store.dispatch);
+const actions = bindActionCreators({ orderCake, addedNewCake, reStock, addnewIceCream }, store.dispatch);
 
 actions.addedNewCake();
 actions.addedNewCake();

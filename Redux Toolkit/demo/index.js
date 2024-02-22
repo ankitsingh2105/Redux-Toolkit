@@ -1,10 +1,10 @@
 // Importing the Redux store
-const store = require("../app/store");
+const store = require("../react-redux-toolkit-app/app/store");
 
 // todo : Importing cake action creators from the cake slice
-const { cakeActions } = require("../features/cake/cakeSlice");
-const { iceCreamActions } = require("../features/iceCream/iceCreamSlice")
-const { fetchUser } = require("../features/user/userSlice");
+const { cakeActions } = require("../react-redux-toolkit-app/src/features/cake/cakeSlice");
+const { iceCreamActions } = require("../react-redux-toolkit-app/src/features/iceCream/iceCreamSlice")
+const { fetchUser } = require("../react-redux-toolkit-app/src/features/user/userSlice");
  
 // Subscribing to store updates and logging the updated state
 const unSubscribe = store.subscribe(() => { 
